@@ -52,6 +52,7 @@ class ContentHandler(webapp2.RequestHandler):
   BASEDIR = os.path.dirname(__file__)
   FEED_RESULTS_LIMIT = 20
   FEATURE_PAGE_WHATS_NEW_LIMIT = 10
+  INDEX_RESULTS_LIMIT = 10
 
   def get_language(self):
     lang_match = re.match("^/(\w{2,3})(?:/|$)", self.request.path)
@@ -409,7 +410,7 @@ class ContentHandler(webapp2.RequestHandler):
             relpath, limit=self.FEATURE_PAGE_WHATS_NEW_LIMIT)
       else:
         if relpath == '':
-          resource_limit = 10
+          resource_limit = self.INDEX_RESULTS_LIMIT
         else:
           resource_limit = None
         results = models.Resource.get_all(order='-publication_date', limit=resource_limit)
